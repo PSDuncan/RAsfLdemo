@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Enquiry Form">
+        <div class="slds-p-around_medium">
+            <lightning-input label="First Name" value={enquiry.FirstName} required></lightning-input>
+            <lightning-input label="Last Name" value={enquiry.LastName} required></lightning-input>
+            <lightning-input label="Email" type="email" value={enquiry.Email} required></lightning-input>
+            <lightning-select label="Country" options={countryOptions} value={enquiry.Country} required></lightning-select>
+            <lightning-input label="Phone" type="tel" value={enquiry.Phone}></lightning-input>
+            <lightning-select label="Holiday Type" options={holidayTypeOptions} value={enquiry.HolidayType} required></lightning-select>
+            <lightning-input label="Number of Adults" type="number" value={enquiry.NumberOfAdults} required></lightning-input>
+            <lightning-input label="Number of Children" type="number" value={enquiry.NumberOfChildren}></lightning-input>
+            <lightning-input label="Arrival Date" type="date" value={enquiry.ArrivalDate}></lightning-input>
+            <lightning-input label="Departure Date" type="date" value={enquiry.DepartureDate}></lightning-input>
+            <lightning-textarea label="Comments" value={enquiry.Comments}></lightning-textarea>
+            <!-- Add other fields -->
+            <lightning-button label="Submit" onclick={submitEnquiry}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
