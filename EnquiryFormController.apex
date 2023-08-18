@@ -1,7 +1,7 @@
-public with sharing class EnquiryFormController {
+public with sharing class EnquiryController {
     @AuraEnabled
-    public static String createEnquiry(Map<String, Object> enquiryMap) {
-        Enquiry__c enquiry = new Enquiry__c(
+    public static String createEnquiryRecord(Map<String, Object> enquiryMap) {
+        Enquiry__c newEnquiry = new Enquiry__c(
             FirstName__c = (String)enquiryMap.get('FirstName'),
             LastName__c = (String)enquiryMap.get('LastName'),
             Email__c = (String)enquiryMap.get('Email'),
@@ -13,15 +13,28 @@ public with sharing class EnquiryFormController {
             ArrivalDate__c = (Date)enquiryMap.get('ArrivalDate'),
             DepartureDate__c = (Date)enquiryMap.get('DepartureDate'),
             Comments__c = (String)enquiryMap.get('Comments')
-            // Add other fields here
         );
 
         try {
-            insert enquiry;
+            insert newEnquiry;
             return 'Success';
         } catch (Exception e) {
             // Handle exceptions and error logging
             return 'Error';
         }
+    }
+
+    @AuraEnabled
+    public static Integer getEnquiryCounter() {
+        EnquiryCounterSetting__c setting = EnquiryCounterSetting__c.getOrgDefaults();
+        if (setting == null) {
+            setting = new EnquiryCounterSetting__c();
+            insert setting;
+        }
+        
+        setting.LastUsedNumber__c++;
+        update setting;
+        
+        return setting.LastUsedNumber__c;
     }
 }
